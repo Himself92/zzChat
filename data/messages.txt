@@ -1,0 +1,7 @@
+time|#|from|#|to|#|message
+1387119262|#|Amine|#|all|#|<p>Bonjour !</p>
+1387119286|#|Amine|#|all|#|<p>Test !</p>
+1387119389|#|Amine|#|Yassine|#|<p> Salut </p>
+1387120470|#|Yassine|#|Amine|#|<p>çava ?</p>
+1387120481|#|Amine|#|all|#|<p> Finally !</p
+1387225421|#|Yassine|#|all|#|<p>Yeaah Bakayaro !</p>
