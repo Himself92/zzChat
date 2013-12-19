@@ -1,31 +1,34 @@
 <?php 
 class User extends FileHandler{
-    public $name;
+    public $userName;
 
-    public function sendTo($name,$text){
+    public function sendTo($userName,$text){
         $msg = new Message;
         $msg->add(array(
             'time' => time(),
-            'from' => $this->name,
-            'to' => $name,
+            'from' => $this->userName,
+            'to' => $userName,
             'message' => $text
         ));
         $this->updateLastActivity();
     }
 
-    public function exists($name){
-        if(empty($this->getByName($name)))
+    public function getUserName(){
+        return $this->userName;
+    }
+
+    public function exists($userName){
+        if(! count($this->getByuserName($userName)))
             return false;
         return true;
     }
 
-    public function login($name){
-        $this->name = $name;
-        $_SESSION['user'] = $name;
-        $fields = $this->getByName($name);
+    public function login($userName){
+        $this->userName = $userName;
+        $fields = $this->getByName($userName);
         if(empty($fields)){
             $this->add(array(
-                'name' => $name,
+                'name' => $userName,
                 'last_activity' => time()
             ));
         }else{
@@ -33,15 +36,7 @@ class User extends FileHandler{
         }
     }
 
-    public function loggedIn(){
-        if(isset($_SESSION['user'])){
-            $this->login($_SESSION['user']);
-            return true;
-        }
-        return false;
-    }
-
     public function updateLastActivity(){
-        $this->setWhereName($this->name,array('last_activity'=>time()));
+        $this->setWhereName($this->userName,array('last_activity'=>time()));
     }
 }

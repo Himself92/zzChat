@@ -20,7 +20,7 @@
 </div></div>
 <script type="text/javascript">
     var other = 'all';
-    var name = '<?=$user->name;?>';
+    var name = '<?=$_SESSION["username"]?>';
     var conversations = [];
     conversations[0] = 'all';
 

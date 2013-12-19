@@ -10,9 +10,11 @@ if(isset($_GET['request'])){
       header('location: index.php');
     break;
     case 'login':
-      if(!empty(getOnlineUsers()) && in_array($_POST['user'], getOnlineUsers())){
+      $onlineUsers = getOnlineUsers();
+      if(count($onlineUsers) && in_array($_POST['user'], $onlineUsers)){
         $error = 'user_already_in_use';
       }else{
+        $_SESSION['username'] = $_POST['user'];
         $user->login($_POST['user']);
         header('location: index.php');
       }
@@ -21,7 +23,8 @@ if(isset($_GET['request'])){
 }
 
 require 'header.php';
-if($user->loggedIn()){
+if(isset($_SESSION['username'])){
+  $user->login($_SESSION['username']);
   require 'room.php';
 }else{
   require 'login.php';

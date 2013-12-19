@@ -12,13 +12,15 @@ function getOnlineUsers(){
     global $user;
     $users = $user->getAll();
     $online = array();
-    if(isset($_SESSION['user']))
-        $myName = $_SESSION['user'];
+    if(isset($_SESSION['username']))
+        $myName = $_SESSION['username'];
     else
         $myName = "";
-    foreach ($users as $u){
-        if(time() - $u['last_activity'] < 5 * 60 && $u['name'] != $myName)
-            $online[] = $u['name'];
+    if(count($users)){
+        foreach ($users as $u){
+            if(time() - $u['last_activity'] < 5 * 60 && $u['name'] != $myName)
+                $online[] = $u['name'];
+        }
     }
     return $online;
 }

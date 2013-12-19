@@ -36,6 +36,7 @@
               <li><a href="index.php?request=lang&lang=en">English</a></li>
             </ul>
           </li>
+          <?php if(isset($_SESSION['username'])) echo '<li><a href="logout.php">'._t("logout").'</a></li>'; ?>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>

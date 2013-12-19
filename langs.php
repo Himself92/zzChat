@@ -36,5 +36,9 @@ $voca = array(
         'fr' => 'Envoyer',
         'en' => 'Send'
     ),
+    'logout' => array(
+        'fr' => 'Se déconnecter',
+        'en' => 'Logout'
+    ),
 
 );

@@ -14,17 +14,18 @@ class FileHandler {
         $this->filePath = __DIR__.'/../data/'.strtolower(get_class($this)).'s.txt';
         $input = fopen($this->filePath,'r');
         if($input){
-            $this->attributes = explode("|#|", $this->getLine($input));
+            $this->attributes = explode("#", $this->getLine($input));
             $count = count($this->attributes);
             $line = $this->getLine($input);
             while($line){
                 $record = array();
-                $values = explode("|#|",$line);
+                $values = explode("#",$line);
                 for($i = 0; $i < $count; $i ++)
                     $record[$this->attributes[$i]] = $values[$i];
                 $this->data[] = $record;
                 $line = $this->getLine($input);
             }
+            // echo '<pre>'; var_dump($this->data); echo'</pre><p></p><hr>';
             $this->error = false;
             fclose($input);
         }else{
@@ -39,10 +40,14 @@ class FileHandler {
 
     public function save(){
         $output = fopen($this->filePath,'w');
-        fwrite($output, implode('|#|', $this->attributes)."\n");
-        foreach ($this->data as $record){
-            fwrite($output, implode('|#|', $record)."\n");
+        fwrite($output, implode('#', $this->attributes)."\n");
+        $size = count($this->data);
+        // echo '<pre>'; var_dump($this->data); echo '</pre><hr>';
+        for ($i = 0; $i < $size; $i++){ 
+            // echo '<p>'.$i.'</p><pre>'; var_dump($this->data[$i]); echo '</pre><hr>';
+            fwrite($output, implode('#', $this->data[$i])."\n");
         }
+        // echo '<hr><hr>';
         fclose($output);
     }
 
@@ -92,9 +97,11 @@ class FileHandler {
 
     private function filter($list, $key, $value){
         $newList = array();
-        foreach ($list as $item){
-            if($item[$key] == $value)
-                $newList[] = $item;
+        if(count($list)){
+            foreach ($list as $item){
+                if($item[$key] == $value)
+                    $newList[] = $item;
+            }
         }
         return $newList;
     }
