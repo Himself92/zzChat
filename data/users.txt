@@ -1,2 +1,2 @@
-name#last_activity
-Amine#1387398551
+name|#|last_activity
+Amine|#|1387398551

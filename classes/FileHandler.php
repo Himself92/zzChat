@@ -1,9 +1,4 @@
 <?php
-/** FileHandler Class.
-* Class handling a text file like a table in database, Simple ORM usage
-* @author webNeat (webneat@gmail.com)
-* @version 0.6 Beta
-*/
 class FileHandler {
     private $filePath;
     private $attributes;
@@ -14,12 +9,12 @@ class FileHandler {
         $this->filePath = __DIR__.'/../data/'.strtolower(get_class($this)).'s.txt';
         $input = fopen($this->filePath,'r');
         if($input){
-            $this->attributes = explode("#", $this->getLine($input));
+            $this->attributes = explode("|#|", $this->getLine($input));
             $count = count($this->attributes);
             $line = $this->getLine($input);
             while($line){
                 $record = array();
-                $values = explode("#",$line);
+                $values = explode("|#|",$line);
                 for($i = 0; $i < $count; $i ++)
                     $record[$this->attributes[$i]] = $values[$i];
                 $this->data[] = $record;
@@ -40,12 +35,12 @@ class FileHandler {
 
     public function save(){
         $output = fopen($this->filePath,'w');
-        fwrite($output, implode('#', $this->attributes)."\n");
+        fwrite($output, implode('|#|', $this->attributes)."\n");
         $size = count($this->data);
         // echo '<pre>'; var_dump($this->data); echo '</pre><hr>';
         for ($i = 0; $i < $size; $i++){ 
             // echo '<p>'.$i.'</p><pre>'; var_dump($this->data[$i]); echo '</pre><hr>';
-            fwrite($output, implode('#', $this->data[$i])."\n");
+            fwrite($output, implode('|#|', $this->data[$i])."\n");
         }
         // echo '<hr><hr>';
         fclose($output);

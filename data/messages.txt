@@ -1,1 +1,1 @@
-time#from#to#message
+time|#|from|#|to|#|message
